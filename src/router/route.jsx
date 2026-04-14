@@ -3,6 +3,7 @@ import App from "../App";
 import Home from "../pages/Home";
 import Timeline from "../pages/Timeline";
 import Stats from "../pages/Stats";
+import FriendsDetails from "../ui/FriendsDetails";
 
 const router = createBrowserRouter([
   {
@@ -11,7 +12,6 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-
         element: <Home />,
       },
       {
@@ -21,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: "/stats",
         element: <Stats />,
+      },
+      {
+        path: "/friend/:id",
+        element: <FriendsDetails />,
       },
     ],
   },

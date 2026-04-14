@@ -18,7 +18,7 @@ const App = () => {
       </main>
 
       {/* Footer */}
-      <footer className="mt-auto border-t bg-white">
+      <footer className="mt-auto">
         <Footer />
       </footer>
     </div>
