@@ -6,7 +6,20 @@ import { FaMessage } from "react-icons/fa6";
 
 const FriendsDetails = () => {
   const { id } = useParams();
-  const { friends } = useContext(FriendContextApi);
+  const { friends, setTimeline } = useContext(FriendContextApi);
+
+  const handleAddTimelineData = (data, type) => {
+    const { name, picture } = data;
+    const newData = {
+      id: crypto.randomUUID(),
+      type,
+      name,
+      date: new Date().toISOString().split("T")[0],
+      img: picture,
+    };
+
+    setTimeline((prevTimeline) => [...prevTimeline, newData]);
+  };
 
   const friend = friends?.find((f) => f.id === Number(id));
 
@@ -108,15 +121,24 @@ const FriendsDetails = () => {
 
             {/* Quick Actions */}
             <div className="flex gap-4 justify-center">
-              <button className="btn btn-success flex items-center gap-2">
+              <button
+                onClick={() => handleAddTimelineData(friend, "call")}
+                className="btn btn-success flex items-center gap-2"
+              >
                 <FaPhone /> Call
               </button>
 
-              <button className="btn btn-info flex items-center gap-2">
+              <button
+                onClick={() => handleAddTimelineData(friend, "text")}
+                className="btn btn-info flex items-center gap-2"
+              >
                 <FaMessage /> Message
               </button>
 
-              <button className="btn btn-secondary flex items-center gap-2">
+              <button
+                onClick={() => handleAddTimelineData(friend, "video")}
+                className="btn btn-secondary flex items-center gap-2"
+              >
                 <FaVideo /> Video
               </button>
             </div>
