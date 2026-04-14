@@ -4,26 +4,28 @@ import Home from "../pages/Home";
 import Timeline from "../pages/Timeline";
 import Stats from "../pages/Stats";
 import FriendsDetails from "../ui/FriendsDetails";
+import NotFound from "../components/Not_Found";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <NotFound />,
     children: [
       {
         index: true,
         element: <Home />,
       },
       {
-        path: "/timeline",
+        path: "timeline",
         element: <Timeline />,
       },
       {
-        path: "/stats",
+        path: "stats",
         element: <Stats />,
       },
       {
-        path: "/friend/:id",
+        path: "friend/:id",
         element: <FriendsDetails />,
       },
     ],
