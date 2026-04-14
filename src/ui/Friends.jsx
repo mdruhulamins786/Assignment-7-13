@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Friends = ({ friend }) => {
   const {
@@ -10,6 +11,18 @@ const Friends = ({ friend }) => {
     tags = [],
     status,
   } = friend;
+
+  const handleStatusClick = (e) => {
+    e.preventDefault(); // Link navigation stop করবে
+
+    if (status === "active") {
+      toast.success(`${name} is Active 🟢`);
+    } else if (status === "busy") {
+      toast.warn(`${name} is Busy 🟡`);
+    } else {
+      toast.error(`${name} is Inactive 🔴`);
+    }
+  };
 
   return (
     <Link to={`/friend/${id}`}>
@@ -36,10 +49,7 @@ const Friends = ({ friend }) => {
           {/* Tags */}
           <div className="flex flex-wrap gap-2 justify-center">
             {tags.map((tag, i) => (
-              <span
-                key={i}
-                className="badge badge-outline badge-sm"
-              >
+              <span key={i} className="badge badge-outline badge-sm">
                 {tag}
               </span>
             ))}
@@ -48,6 +58,7 @@ const Friends = ({ friend }) => {
           {/* Status */}
           <div className="card-actions justify-center">
             <button
+              onClick={handleStatusClick}
               className={`btn btn-sm capitalize ${
                 status === "active"
                   ? "btn-success"

@@ -6,6 +6,7 @@ import FriendContext from "./context-api/FriendContext.jsx";
 import { RouterProvider } from "react-router-dom";
 import router from "./router/route.jsx";
 
+
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <FriendContext>
@@ -13,5 +14,6 @@ createRoot(document.getElementById("root")).render(
         <App />
       </RouterProvider>
     </FriendContext>
+   
   </StrictMode>,
 );

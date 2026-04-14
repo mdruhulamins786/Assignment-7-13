@@ -3,13 +3,20 @@ import { useContext } from "react";
 import { FriendContextApi } from "../context-api/FriendContext";
 import { FaPhone, FaVideo } from "react-icons/fa";
 import { FaMessage } from "react-icons/fa6";
+import { toast } from "react-toastify";
 
 const FriendsDetails = () => {
   const { id } = useParams();
-  const { friends, setTimeline } = useContext(FriendContextApi);
+  const { friends = [], setTimeline } = useContext(FriendContextApi);
 
   const handleAddTimelineData = (data, type) => {
+    if (!data) {
+      toast.error("No data found ❌");
+      return;
+    }
+
     const { name, picture } = data;
+
     const newData = {
       id: crypto.randomUUID(),
       type,
@@ -18,10 +25,20 @@ const FriendsDetails = () => {
       img: picture,
     };
 
-    setTimeline((prevTimeline) => [...prevTimeline, newData]);
+    toast.success(`${name} added to timeline 🎉`);
+    setTimeline((prev) => [...prev, newData]);
   };
 
-  const friend = friends?.find((f) => f.id === Number(id));
+  if (!friends.length) {
+    return (
+      <div className="min-h-screen flex flex-col justify-center items-center">
+        <span className="loading loading-spinner loading-lg text-primary"></span>
+        <p className="mt-3 text-gray-500">Loading friend details...</p>
+      </div>
+    );
+  }
+
+  const friend = friends.find((f) => f.id === Number(id));
 
   if (!friend) {
     return (
@@ -52,7 +69,6 @@ const FriendsDetails = () => {
               <h2 className="card-title text-2xl">{friend.name}</h2>
               <p className="text-gray-500 text-sm">{friend.email}</p>
 
-              {/* Status */}
               <span
                 className={`badge text-white px-3 py-2 ${
                   friend.status === "active"
@@ -65,7 +81,6 @@ const FriendsDetails = () => {
                 {friend.status}
               </span>
 
-              {/* Tags */}
               <div className="flex flex-wrap gap-2 justify-center">
                 {friend.tags?.map((tag, i) => (
                   <span key={i} className="badge badge-outline">
@@ -86,7 +101,6 @@ const FriendsDetails = () => {
           <div className="card bg-base-100 shadow-xl p-6 space-y-6">
             <h2 className="text-2xl font-bold">Friend Insights</h2>
 
-            {/* Info */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="p-4 bg-base-200 rounded-xl">
                 <p className="text-sm text-gray-500">Last Contact</p>
@@ -113,13 +127,11 @@ const FriendsDetails = () => {
               </div>
             </div>
 
-            {/* Bio */}
             <div className="p-4 bg-base-200 rounded-xl">
               <p className="text-sm text-gray-500 mb-2">Bio</p>
               <p className="text-gray-700">{friend.bio}</p>
             </div>
 
-            {/* Quick Actions */}
             <div className="flex gap-4 justify-center">
               <button
                 onClick={() => handleAddTimelineData(friend, "call")}

@@ -7,7 +7,7 @@ const Navbar = () => {
   const linkClass = ({ isActive }) =>
     isActive
       ? "text-primary font-semibold flex items-center gap-2"
-      : "flex items-center gap-2 hover:text-primary transition";
+      : "flex items-center bg-white gap-2 hover:text-primary transition";
 
   const menu = (
     <>
@@ -33,17 +33,14 @@ const Navbar = () => {
 
   return (
     <div className="navbar bg-base-100 shadow-md px-4">
-      {/* Left */}
       <div className="flex-1">
         <h3 className="text-xl font-bold text-primary">KeenKeeper</h3>
       </div>
 
-      {/* Desktop Menu */}
       <div className="hidden md:flex">
         <ul className="menu menu-horizontal px-1 gap-2">{menu}</ul>
       </div>
 
-      {/* Mobile Dropdown */}
       <div className="dropdown dropdown-end md:hidden">
         <label tabIndex={0} className="btn btn-ghost">
           ☰
@@ -51,7 +48,7 @@ const Navbar = () => {
 
         <ul
           tabIndex={0}
-          className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+          className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow rounded-box w-52"
         >
           {menu}
         </ul>
