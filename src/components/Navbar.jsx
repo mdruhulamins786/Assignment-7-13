@@ -1,5 +1,5 @@
 import { FaHome } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { RiTimeLine } from "react-icons/ri";
 import { BiStats } from "react-icons/bi";
 
@@ -34,7 +34,9 @@ const Navbar = () => {
   return (
     <div className="navbar bg-base-100 shadow-md px-4">
       <div className="flex-1">
-        <h3 className="text-xl font-bold text-primary">KeenKeeper</h3>
+        <Link to="/">
+          <h3 className="text-xl font-bold text-primary">KeenKeeper</h3>
+        </Link>
       </div>
 
       <div className="hidden md:flex">
